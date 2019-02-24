@@ -2,7 +2,6 @@
 
 [![exercise status: released](https://img.shields.io/badge/exercise%20status-released-green.svg?style=for-the-badge)](https://gophercises.com/exercises/cyoa) [![demo: ->](https://img.shields.io/badge/demo-%E2%86%92-blue.svg?style=for-the-badge)](https://gophercises.com/demos/cyoa/)
 
-
 ## Exercise details
 
 [Choose Your Own Adventure](https://en.wikipedia.org/wiki/Choose_Your_Own_Adventure) is (was?) a series of books intended for children where as you read you would occasionally be given options about how you want to proceed. For instance, you might read about a boy walking in a cave when he stumbles across a dark passage or a ladder leading to an upper level and the reader will be presented with two options like:
@@ -39,7 +38,7 @@ Stories will be provided via a JSON file with the following format:
 }
 ```
 
-*See [gopher.json](https://github.com/gophercises/cyoa/blob/master/gopher.json) for a real example of a JSON story. I find that seeing the real JSON file really helps answer any confusion or questions about the JSON format.*
+_See [gopher.json](https://github.com/gophercises/cyoa/blob/master/gopher.json) for a real example of a JSON story. I find that seeing the real JSON file really helps answer any confusion or questions about the JSON format._
 
 You are welcome to design the code however you want. You can put everything in a single `main` package, or you can break the story into its own package and use that when creating your http handlers.
 
