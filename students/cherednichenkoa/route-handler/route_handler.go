@@ -1,7 +1,6 @@
 package route_handler
 
 import (
-	"fmt"
 	"gopherex/cyoa/students/cherednichenkoa/settings"
 	"gopherex/cyoa/students/cherednichenkoa/source"
 	"html/template"
@@ -10,7 +9,7 @@ import (
 )
 
 const (
-	defaultUrl = "/intro"
+	defaultStory = "intro"
 )
 
 type RouteHandler struct {
@@ -38,18 +37,13 @@ func (rh *RouteHandler) getMapHandler(stories map[string]source.StoryDetails) ht
 			return
 		}
 
-		http.Redirect(w, req, rh.getRedirectUrl(req), http.StatusMovedPermanently)
+		tmpl.Execute(w, stories[defaultStory])
 	}
 }
 
 func (rh *RouteHandler) getPort() string {
 	port := ":" + rh.Settings.GetListenPort()
 	return port
-}
-
-func (rh *RouteHandler) getRedirectUrl(req *http.Request) string {
-	redirectUrl := fmt.Sprintf("%s%s%s", "http://", req.Host, defaultUrl)
-	return redirectUrl
 }
 
 func (rh *RouteHandler) prepareUrl(req *http.Request) string {
