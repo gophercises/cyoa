@@ -3,7 +3,7 @@ package source
 import (
 	"encoding/json"
 	"fmt"
-	"gopherex/cyoa/main/settings"
+	"gopherex/cyoa/students/cherednichenkoa/settings"
 	"io/ioutil"
 )
 

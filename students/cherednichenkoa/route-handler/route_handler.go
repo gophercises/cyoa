@@ -2,8 +2,8 @@ package route_handler
 
 import (
 	"fmt"
-	"gopherex/cyoa/main/settings"
-	"gopherex/cyoa/main/source"
+	"gopherex/cyoa/students/cherednichenkoa/settings"
+	"gopherex/cyoa/students/cherednichenkoa/source"
 	"html/template"
 	"net/http"
 	"strings"
