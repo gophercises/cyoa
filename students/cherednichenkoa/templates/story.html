@@ -12,19 +12,17 @@
         {{end}}
     </div>
     <div class="variations-links">
-        <ul>
-            {{if .Options }}
+        {{if .Options }}
+            <ul>
                 {{range .Options}}
                     <li class="link-container">
                         <a href="{{.Arc}}">{{.Text}}</a>
                     </li>
                 {{end}}
-            {{else}}
-                <p ><b>The End !</b></p>
-            {{end}}
-
-
-        </ul>
+            </ul>
+        {{else}}
+            <p ><b>The End !</b></p>
+        {{end}}
     </div>
 </body>
 </html>
