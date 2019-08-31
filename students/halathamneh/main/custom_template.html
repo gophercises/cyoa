@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create your own adventure</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #efefef;
+        }
+
+        .container {
+            min-width: 100vw;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            padding: 16px;
+            background-color: #fff;
+            box-shadow: 0 0 0 5px rgba(150, 150, 150, .5);
+            min-width: 550px;
+            max-width: 1000px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h1>{{.Title}}</h1>
+        <p>{{range .Paragraphs}}{{.}}{{end}}</p>
+        <ul>
+            {{range .Options}}
+            <li><a href="/story/{{.Chapter}}">{{.Text}}</a></li>
+            {{end}}
+        </ul>
+    </div>
+</div>
+</body>
+</html>
