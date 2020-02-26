@@ -1,0 +1,27 @@
+<html>
+    <head>
+    <title>Chapter: {{.Title}} </title>
+    </head>
+
+    <body>
+        <div class="text">
+            <h2> {{.Title}} </h2>
+
+            {{range .Text}}
+                <p> {{.}} </p>
+            {{end}}
+        </div>
+
+        {{if .Continuations}} 
+            <div class="options">
+                <h2>Continuation...</h2>
+                {{range .Continuations}}
+                <p>
+                <a href="{{.TargetTag}}">Click here</a>
+                {{.Preview}}
+                </p>
+                {{end}}
+            </div>
+        {{end}}
+    </body>
+</html>
