@@ -15,7 +15,7 @@ type option struct {
 	Arc  string `json:"arc"`
 }
 
-type story struct {
+type scenario struct {
 	Title   string   `json:"title"`
 	Story   []string `json: "story"`
 	Options []option `json:"options"`
@@ -37,12 +37,12 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	var stories map[string]story
-	unmarshallingError := json.Unmarshal(jsonStories, &stories)
+	var scenarios map[string]scenario
+	unmarshallingError := json.Unmarshal(jsonStories, &scenarios)
 	if unmarshallingError != nil {
 		panic(unmarshallingError)
 	}
-	fmt.Println(stories)
+	fmt.Println(scenarios)
 
 	fmt.Println("Launching server on port 3645")
 	err = http.ListenAndServe(":3645", mux)
