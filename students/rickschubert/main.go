@@ -9,8 +9,8 @@ type customHandler struct {
 }
 
 func (h customHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	w.Header().Add("Content-Type", "application/json")
-	textResponse := "{\"message\": \"You are doing really well.\"}"
+	w.Header().Add("Content-Type", "text/html")
+	textResponse := "<p>You are doing really well.</p>"
 	response := []byte(textResponse)
 	w.Write(response)
 }
