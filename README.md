@@ -14,7 +14,7 @@ The goal of this exercise is to recreate this experience via a web application w
 
 Stories will be provided via a JSON file with the following format:
 
-```json
+```
 {
   // Each story arc will have a unique key that represents
   // the name of that particular arc.
