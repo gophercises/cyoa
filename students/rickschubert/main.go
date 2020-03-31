@@ -81,7 +81,7 @@ func lowerCaseScenarioKeys(m map[string]scenario) {
 	}
 }
 
-func main() {
+func parseScenariosFromFile() map[string]scenario {
 	jsonStories, err := ioutil.ReadFile("./stories.json")
 	if err != nil {
 		panic(err)
@@ -92,6 +92,11 @@ func main() {
 		panic(unmarshallingError)
 	}
 	lowerCaseScenarioKeys(scenarios)
+	return scenarios
+}
+
+func main() {
+	scenarios := parseScenariosFromFile()
 	fmt.Println(scenarios)
 
 	mux := http.NewServeMux()
@@ -101,7 +106,7 @@ func main() {
 	mux.Handle("/", defaultHandler)
 
 	fmt.Println("Launching server on port 3645")
-	err = http.ListenAndServe(":3645", mux)
+	err := http.ListenAndServe(":3645", mux)
 	if err != nil {
 		panic(err)
 	}
