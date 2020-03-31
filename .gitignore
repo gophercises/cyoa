@@ -14,3 +14,5 @@
 .glide/
 tmp/
 .idea/
+
+**/gin-bin.exe
