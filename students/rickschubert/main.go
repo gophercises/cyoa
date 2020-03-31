@@ -51,11 +51,21 @@ func trimFirstRune(s string) string {
 	return s[i:]
 }
 
+func sanitiseUrlPath(urlPath string) string {
+	// Path always contains a leading / , even when request is made without any
+	var sanitised = trimFirstRune(urlPath)
+	sanitised = strings.ToLower(sanitised)
+	return sanitised
+}
+
+func writeTextToHttpResponse(text string, w http.ResponseWriter) {
+	response := []byte(text)
+	w.Write(response)
+}
+
 func (h customHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	w.Header().Add("Content-Type", "text/html")
-	// Path always contains a leading / , even when request is made without any
-	var sceneTitle = trimFirstRune(req.URL.Path)
-	sceneTitle = strings.ToLower(sceneTitle)
+	sceneTitle := sanitiseUrlPath(req.URL.Path)
 	scene, errFindingScene := retrieveScenarioFromMapOfScenarios(sceneTitle, h.Scenarios)
 	var textResponse string
 	if errFindingScene == nil {
@@ -63,8 +73,7 @@ func (h customHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	} else {
 		textResponse = "<p>You are doing really well.</p>"
 	}
-	response := []byte(textResponse)
-	w.Write(response)
+	writeTextToHttpResponse(textResponse, w)
 }
 
 func scenarioKeyNeedsToBeLowerCased(originalKey string, lowerCasedKey string) bool {
