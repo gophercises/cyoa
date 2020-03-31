@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 	"unicode/utf8"
 )
 
@@ -45,7 +46,8 @@ func trimFirstRune(s string) string {
 func (h customHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	w.Header().Add("Content-Type", "text/html")
 	// Path always contains a leading / , even when request is made without any
-	sceneTitle := trimFirstRune(req.URL.Path)
+	var sceneTitle = trimFirstRune(req.URL.Path)
+	sceneTitle = strings.ToLower(sceneTitle)
 	scene, errFindingScene := retrieveScenarioFromMapOfScenarios(sceneTitle, h.Scenarios)
 	var textResponse string
 	if errFindingScene == nil {
@@ -55,6 +57,16 @@ func (h customHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	}
 	response := []byte(textResponse)
 	w.Write(response)
+}
+
+func lowerCaseScenarioKeys(m map[string]scenario) {
+	for key, value := range m {
+		lowerCasedKey := strings.ToLower(key)
+		if lowerCasedKey != key {
+			m[strings.ToLower(key)] = value
+			delete(m, key)
+		}
+	}
 }
 
 func main() {
@@ -67,6 +79,7 @@ func main() {
 	if unmarshallingError != nil {
 		panic(unmarshallingError)
 	}
+	lowerCaseScenarioKeys(scenarios)
 	fmt.Println(scenarios)
 
 	mux := http.NewServeMux()
