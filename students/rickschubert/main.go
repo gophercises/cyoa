@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"unicode/utf8"
 )
 
 type customHandler struct {
@@ -36,12 +37,18 @@ func retrieveScenarioFromMapOfScenarios(scenarioTitle string, mapOfScenarios map
 	return scene, err
 }
 
+func trimFirstRune(s string) string {
+	_, i := utf8.DecodeRuneInString(s)
+	return s[i:]
+}
+
 func (h customHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	w.Header().Add("Content-Type", "text/html")
+	// Path always contains a leading / , even when request is made without any
+	sceneTitle := trimFirstRune(req.URL.Path)
+	scene, errFindingScene := retrieveScenarioFromMapOfScenarios(sceneTitle, h.Scenarios)
 	var textResponse string
-	if req.URL.Path == "/intro" {
-		// TODO: This assumes "intro" exists - needs to check whether it actually exists or not
-		scene, _ := retrieveScenarioFromMapOfScenarios("intro", h.Scenarios)
+	if errFindingScene == nil {
 		textResponse = createHtmlResponseForScenario(scene)
 	} else {
 		textResponse = "<p>You are doing really well.</p>"
