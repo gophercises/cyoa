@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"html/template"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -26,7 +28,13 @@ type scenario struct {
 }
 
 func createHtmlResponseForScenario(scene scenario) string {
-	return scene.Title
+	tmpl, err := template.ParseFiles("./base.html")
+	if err != nil {
+		panic(err)
+	}
+	var textTemplate bytes.Buffer
+	tmpl.Execute(&textTemplate, scene)
+	return textTemplate.String()
 }
 
 func retrieveScenarioFromMapOfScenarios(scenarioTitle string, mapOfScenarios map[string]scenario) (scenario, error) {
@@ -59,10 +67,14 @@ func (h customHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	w.Write(response)
 }
 
+func scenarioKeyNeedsToBeLowerCased(originalKey string, lowerCasedKey string) bool {
+	return lowerCasedKey != originalKey
+}
+
 func lowerCaseScenarioKeys(m map[string]scenario) {
 	for key, value := range m {
 		lowerCasedKey := strings.ToLower(key)
-		if lowerCasedKey != key {
+		if scenarioKeyNeedsToBeLowerCased(key, lowerCasedKey) {
 			m[strings.ToLower(key)] = value
 			delete(m, key)
 		}
