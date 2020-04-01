@@ -52,16 +52,22 @@ func trimFirstRune(s string) string {
 
 func writeTextToHTTPResponse(text string, w http.ResponseWriter) {
 	response := []byte(text)
-	w.Write(response)
+	_, err := w.Write(response)
+	if err !=nil {
+		fmt.Println(fmt.Errorf("%s", err))
+	}
 }
 
 func createHTMLResponseForScenario(scene Scenario) string {
-	tmpl, err := template.ParseFiles("./base.html")
+	tmpl, err := template.ParseFiles("./httpstoryhandler/base.html")
 	if err != nil {
 		panic(err)
 	}
 	var textTemplate bytes.Buffer
-	tmpl.Execute(&textTemplate, scene)
+	err = tmpl.Execute(&textTemplate, scene)
+	if err != nil {
+		panic(err)
+	}
 	return textTemplate.String()
 }
 
