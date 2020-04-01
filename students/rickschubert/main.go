@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/gophersizes/cyoa/students/rickschubert/dummyPackage"
 	"html/template"
 	"io/ioutil"
 	"net/http"
@@ -105,6 +106,8 @@ func parseScenariosFromFile() map[string]scenario {
 }
 
 func main() {
+	dummyPackage.GetDummyPackageName()
+
 	scenarios := parseScenariosFromFile()
 	fmt.Println(scenarios)
 
