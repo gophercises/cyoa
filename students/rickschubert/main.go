@@ -28,7 +28,7 @@ type scenario struct {
 	Options []option `json:"options"`
 }
 
-func createHtmlResponseForScenario(scene scenario) string {
+func createHTMLResponseForScenario(scene scenario) string {
 	tmpl, err := template.ParseFiles("./base.html")
 	if err != nil {
 		panic(err)
@@ -42,7 +42,7 @@ func retrieveScenarioFromMapOfScenarios(scenarioTitle string, mapOfScenarios map
 	var err error
 	scene, foundScenario := mapOfScenarios[scenarioTitle]
 	if !foundScenario {
-		err = errors.New(fmt.Sprintf("Unable to find a scenario of title \"%s\"", scenarioTitle))
+		err = fmt.Errorf("Unable to find a scenario of title \"%s\"", scenarioTitle)
 	}
 	return scene, err
 }
@@ -52,29 +52,29 @@ func trimFirstRune(s string) string {
 	return s[i:]
 }
 
-func sanitiseUrlPath(urlPath string) string {
+func sanitiseURLPath(urlPath string) string {
 	// Path always contains a leading / , even when request is made without any
 	var sanitised = trimFirstRune(urlPath)
 	sanitised = strings.ToLower(sanitised)
 	return sanitised
 }
 
-func writeTextToHttpResponse(text string, w http.ResponseWriter) {
+func writeTextToHTTPResponse(text string, w http.ResponseWriter) {
 	response := []byte(text)
 	w.Write(response)
 }
 
 func (h customHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	w.Header().Add("Content-Type", "text/html")
-	sceneTitle := sanitiseUrlPath(req.URL.Path)
+	sceneTitle := sanitiseURLPath(req.URL.Path)
 	scene, errFindingScene := retrieveScenarioFromMapOfScenarios(sceneTitle, h.Scenarios)
 	var textResponse string
 	if errFindingScene == nil {
-		textResponse = createHtmlResponseForScenario(scene)
+		textResponse = createHTMLResponseForScenario(scene)
 	} else {
 		textResponse = "<p>You are doing really well.</p>"
 	}
-	writeTextToHttpResponse(textResponse, w)
+	writeTextToHTTPResponse(textResponse, w)
 }
 
 func scenarioKeyNeedsToBeLowerCased(originalKey string, lowerCasedKey string) bool {
