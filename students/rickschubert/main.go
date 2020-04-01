@@ -108,7 +108,6 @@ func main() {
 	dummyPackage.GetDummyPackageName()
 
 	scenarios := parseScenariosFromFile()
-	fmt.Println(scenarios)
 
 	mux := http.NewServeMux()
 	defaultHandler := customHandler{
