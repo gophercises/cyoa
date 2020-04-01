@@ -53,7 +53,7 @@ func trimFirstRune(s string) string {
 func writeTextToHTTPResponse(text string, w http.ResponseWriter) {
 	response := []byte(text)
 	_, err := w.Write(response)
-	if err !=nil {
+	if err != nil {
 		fmt.Println(fmt.Errorf("%s", err))
 	}
 }
