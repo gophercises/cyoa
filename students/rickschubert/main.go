@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/gophersizes/cyoa/students/rickschubert/dummyPackage"
 	"html/template"

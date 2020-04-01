@@ -10,5 +10,12 @@
     {{range .Story}}
         <p>{{.}}</p>
     {{end}}
+
+    {{if .Options}}
+        <hr>
+        {{range .Options}}
+            <p><a href="/{{.Arc}}"><button>{{.Text}}</button></a></p>
+        {{end}}
+    {{end}}
 </body>
 </html>
