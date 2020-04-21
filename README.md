@@ -1,18 +1,18 @@
-# Exercise #3: Choose your own adventure
+# Exercise #3: Elige tu propia aventura
 
 [![exercise status: released](https://img.shields.io/badge/exercise%20status-released-green.svg?style=for-the-badge)](https://gophercises.com/exercises/cyoa) [![demo: ->](https://img.shields.io/badge/demo-%E2%86%92-blue.svg?style=for-the-badge)](https://gophercises.com/demos/cyoa/)
 
 
 ## Exercise details
 
-[Choose Your Own Adventure](https://en.wikipedia.org/wiki/Choose_Your_Own_Adventure) is (was?) a series of books intended for children where as you read you would occasionally be given options about how you want to proceed. For instance, you might read about a boy walking in a cave when he stumbles across a dark passage or a ladder leading to an upper level and the reader will be presented with two options like:
+[Choose Your Own Adventure](https://en.wikipedia.org/wiki/Choose_Your_Own_Adventure) es (¿fue?) una serie de libros destinados a niños donde, a medida que lees, ocasionalmente se te darán opciones sobre cómo quieres proceder. Por ejemplo, puede leer sobre un niño que camina en una cueva cuando tropieza con un pasaje oscuro o una escalera que conduce a un nivel superior y el lector tendrá dos opciones como:
 
-- Turn to page 44 to go up the ladder.
-- Turn to page 87 to venture down the dark passage.
+- Pase a la página 44 para subir la escalera.
+- Pase a la página 87 para aventurarse por el oscuro pasaje.
 
-The goal of this exercise is to recreate this experience via a web application where each page will be a portion of the story, and at the end of every page the user will be given a series of options to choose from (or be told that they have reached the end of that particular story arc).
+El objetivo de este ejercicio es recrear esta experiencia a través de una aplicación web donde cada página será una parte de la historia, y al final de cada página se le dará al usuario una serie de opciones para elegir (o se le dirá que han llegado al final de ese arco de historia en particular).
 
-Stories will be provided via a JSON file with the following format:
+Las historias se proporcionarán a través de un archivo JSON con el siguiente formato:
 
 ```json
 {
@@ -39,25 +39,25 @@ Stories will be provided via a JSON file with the following format:
 }
 ```
 
-*See [gopher.json](https://github.com/gophercises/cyoa/blob/master/gopher.json) for a real example of a JSON story. I find that seeing the real JSON file really helps answer any confusion or questions about the JSON format.*
+*Vea [gopher.json](https://github.com/gophercises/cyoa/blob/master/gopher.json) para un ejemplo real de una historia JSON. Me parece que ver el archivo JSON real realmente ayuda a responder cualquier confusión o pregunta sobre el formato JSON. *
 
-You are welcome to design the code however you want. You can put everything in a single `main` package, or you can break the story into its own package and use that when creating your http handlers.
+Puedes diseñar el código como quieras. Puede poner todo en un solo paquete `main`, o puede dividir la historia en su propio paquete y usarlo al crear sus controladores http.
 
-The only real requirements are:
+Los únicos requisitos reales son:
 
-1. Use the `html/template` package to create your HTML pages. Part of the purpose of this exercise is to get practice using this package.
-2. Create an `http.Handler` to handle the web requests instead of a handler function.
-3. Use the `encoding/json` package to decode the JSON file. You are welcome to try out third party packages afterwards, but I recommend starting here.
+1. Use el paquete `html / template` para crear sus páginas HTML. Parte del propósito de este ejercicio es practicar con este paquete.
+2. Cree un `http.Handler` para manejar las solicitudes web en lugar de una función de controlador.
+3. Use el paquete `encoding / json` para decodificar el archivo JSON. Puede probar paquetes de terceros posteriormente, pero le recomiendo comenzar aquí.
 
-A few things worth noting:
+Algunas cosas que vale la pena señalar:
 
-- Stories could be cyclical if a user chooses options that keep leading to the same place. This isn't likely to cause issues, but keep it in mind.
-- For simplicity, all stories will have a story arc named "intro" that is where the story starts. That is, every JSON file will have a key with the value `intro` and this is where your story should start.
-- Matt Holt's JSON-to-Go is a really handy tool when working with JSON in Go! Check it out - <https://mholt.github.io/json-to-go/>
+- Las historias pueden ser cíclicas si un usuario elige opciones que siguen conduciendo al mismo lugar. No es probable que esto cause problemas, pero tenlo en cuenta.
+- Para simplificar, todas las historias tendrán un arco de historia llamado "introducción", que es donde comienza la historia. Es decir, cada archivo JSON tendrá una clave con el valor `intro` y aquí es donde debe comenzar su historia.
+- JSON-to-Go de Matt Holt es una herramienta realmente útil cuando se trabaja con JSON en Go! Compruébalo - <https://mholt.github.io/json-to-go/>
 
 ## Bonus
 
-As a bonus exercises you can also:
+Como ejercicios extra también puedes:
 
-1. Create a command-line version of our Choose Your Own Adventure application where stories are printed out to the terminal and options are picked via typing in numbers ("Press 1 to venture ...").
-2. Consider how you would alter your program in order to support stories starting form a story-defined arc. That is, what if all stories didn't start on an arc named `intro`? How would you redesign your program or restructure the JSON? This bonus exercises is meant to be as much of a thought exercise as an actual coding one.
+1. Cree una versión de línea de comandos de nuestra aplicación Choose Your Own Adventure donde las historias se imprimen en el terminal y las opciones se seleccionan escribiendo números ("Presione 1 para aventurarse ...").
+2. Considere cómo alteraría su programa para apoyar las historias que comienzan desde un arco definido por la historia. Es decir, ¿qué pasa si todas las historias no comienzan en un arco llamado 'introducción'? ¿Cómo rediseñaría su programa o reestructuraría el JSON? Este ejercicio de bonificación está destinado a ser tanto un ejercicio de pensamiento como uno de codificación real.
