@@ -21,7 +21,6 @@ func (c Cap) GetOptions() []struct {
 	Text string "json:\"text\""
 	Arc  string "json:\"arc\""
 } {
-	//helpers.DD(c.Options)
 
 	return c.Options
 }
