@@ -4,8 +4,8 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/fenriz07/cyoa/helpers"
-	"github.com/fenriz07/cyoa/models/book"
+	"github.com/fenriz07/cyoa/students/fenriz/helpers"
+	"github.com/fenriz07/cyoa/students/fenriz/models/book"
 )
 
 func Init(fallback http.Handler) http.HandlerFunc {

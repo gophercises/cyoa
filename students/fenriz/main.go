@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/fenriz07/cyoa/handler"
+	"github.com/fenriz07/cyoa/students/fenriz/handler"
 )
 
 func main() {

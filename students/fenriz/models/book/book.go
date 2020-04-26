@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/fenriz07/cyoa/helpers"
-	"github.com/fenriz07/cyoa/models/cap"
+	"github.com/fenriz07/cyoa/students/fenriz/helpers"
+	"github.com/fenriz07/cyoa/students/fenriz/models/cap"
 )
 
 type Book struct {
