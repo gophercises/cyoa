@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cap  {{ .Title }} </title>
+
+    <style>
+        .container-story{
+            display: block;
+            margin: 0 auto;
+            max-width: 500px;
+            border: 1px solid black;
+            padding: 20px;
+        }
+
+        h1{
+            display: block;
+            text-align: center;
+        }
+
+        p.story{
+            text-align: justify;
+            line-height: 35px;
+            border-bottom: 1px solid yellowgreen;
+            padding-bottom: 15px;
+        }
+
+        a{
+            width: 100%;
+            display: block;
+            text-decoration: none;
+            color: black;        
+            font-size: 16px;
+        }
+ 
+    </style>
+
+
+</head>
+<body>
+
+    <div class="container-story">
+
+        <h1> Cap {{ .Title }} </h1>
+
+        {{range .GetStory }}
+
+            <p class="story">  {{.}} </p>
+        
+        {{end}}
+
+
+        <p>Options:</p>
+
+        {{ range .GetOptions}}
+
+            
+            <a href="http://localhost:8080/?slug={{.Arc}}">
+            
+                <p> {{.Text}} </p>
+                
+            </a>
+
+        {{end}}
+
+
+        
+
+    </div>
+    
+    
+</body>
+</html>
