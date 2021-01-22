@@ -1,15 +1,14 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
-)
 
-const (
-	intro = "intro"
+	"../../pkg/handler"
+	"../../pkg/model"
 )
 
 func main() {
@@ -24,18 +23,19 @@ func main() {
 	}
 	defer f.Close()
 
-	var book Book
-	if err := json.NewDecoder(f).Decode(&book); err != nil {
-		fmt.Printf("could not parse file: %v\n", err)
-		os.Exit(1)
-	}
+	book, err := model.DecodeJSON(f)
+	check(err)
 	f.Close()
 
-	handler := NewBookHandler(book)
+	h := handler.New(book)
 
 	fmt.Printf("starting server on :%d...\n", *port)
-	if err := http.ListenAndServe(fmt.Sprintf(":%d", *port), handler); err != nil {
-		fmt.Printf("could not start server on :%d: %v\n", *port, err)
-		os.Exit(1)
+	err = http.ListenAndServe(fmt.Sprintf(":%d", *port), h)
+	check(err)
+}
+
+func check(err error) {
+	if err != nil {
+		log.Fatal(err)
 	}
 }

@@ -1,4 +1,4 @@
-package main
+package handler
 
 const (
 	chapterHTML = `
@@ -19,7 +19,7 @@ const (
 
   <ul>
     {{range .Options }}
-    <li><a href="/{{ .Chaper }}">{{ .Text }}</a></li>
+    <li><a href="/{{ .Chapter }}">{{ .Text }}</a></li>
     {{end}}
   </ul>
 
