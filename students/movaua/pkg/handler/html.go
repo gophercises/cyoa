@@ -7,19 +7,21 @@ const (
 
 <head>
   <meta charset='utf-8'>
-  <title>CYOA - {{ .Title }}</title>
+  <title>CYOA: {{.Title}}</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 
 <body>
 
-  <h2>{{ .Title }}</h2>
+  <h2>{{.Title}}</h2>
 
-  <p>{{ .Story }}</p>
+  {{range .Paragraphs}}
+  <p>{{.}}</p>
+  {{end}}
 
   <ul>
-    {{range .Options }}
-    <li><a href="/{{ .Chapter }}">{{ .Text }}</a></li>
+    {{range .Options}}
+    <li><a href="/{{.Chapter}}">{{.Text}}</a></li>
     {{end}}
   </ul>
 

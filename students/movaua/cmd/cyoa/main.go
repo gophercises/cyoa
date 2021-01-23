@@ -17,17 +17,14 @@ func main() {
 	flag.Parse()
 
 	f, err := os.Open(*filename)
-	if err != nil {
-		fmt.Printf("could not open file: %v\n", err)
-		os.Exit(1)
-	}
+	check(err)
 	defer f.Close()
 
-	book, err := model.DecodeJSON(f)
+	story, err := model.JSONStory(f)
 	check(err)
 	f.Close()
 
-	h := handler.New(book)
+	h := handler.New(story)
 
 	fmt.Printf("starting server on :%d...\n", *port)
 	err = http.ListenAndServe(fmt.Sprintf(":%d", *port), h)

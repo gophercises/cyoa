@@ -3,6 +3,7 @@ package handler
 import (
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
 	"strings"
 
@@ -15,15 +16,15 @@ const (
 
 // StoryHandler is CYOA Story http.Handler
 type StoryHandler struct {
-	Story model.Story
+	story model.Story
 	tpl   *template.Template
 }
 
 // New creates new handler for provided Story
-func New(Story model.Story) *StoryHandler {
+func New(story model.Story) *StoryHandler {
 	return &StoryHandler{
-		Story: Story,
-		tpl:   template.Must(template.New("webpage").Parse(chapterHTML)),
+		story: story,
+		tpl:   template.Must(template.New("chapter tpl").Parse(chapterHTML)),
 	}
 }
 
@@ -35,17 +36,14 @@ func (h *StoryHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	chaper, ok := h.Story[path]
+	chaper, ok := h.story[path]
 	if !ok {
-		http.NotFound(w, r)
+		http.Error(w, "Chapter is not found.", http.StatusNotFound)
 		return
 	}
 
 	if err := h.tpl.Execute(w, chaper); err != nil {
-		fmt.Printf("could not execute template: %v\n", err)
-		http.Error(w, "Internal error", http.StatusInternalServerError)
-		return
+		http.Error(w, "Something went wrong...", http.StatusInternalServerError)
+		log.Printf("could not execute template: %v\n", err)
 	}
-
-	w.WriteHeader(http.StatusOK)
 }

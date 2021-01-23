@@ -10,9 +10,9 @@ type Story map[string]Chapter
 
 // Chapter of a book
 type Chapter struct {
-	Title   string   `json:"title"`
-	Story   []string `json:"story"`
-	Options []Option `json:"options"`
+	Title      string   `json:"title"`
+	Paragraphs []string `json:"story"`
+	Options    []Option `json:"options"`
 }
 
 // Option of a Chaper
@@ -21,8 +21,8 @@ type Option struct {
 	Chapter string `json:"arc"`
 }
 
-// DecodeJSON decodes Book from r
-func DecodeJSON(r io.Reader) (Story, error) {
+// JSONStory reads Story from reader
+func JSONStory(r io.Reader) (Story, error) {
 	var book Story
 	if err := json.NewDecoder(r).Decode(&book); err != nil {
 		return nil, err
