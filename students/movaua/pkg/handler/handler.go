@@ -14,21 +14,45 @@ const (
 	intro = "intro"
 )
 
-// StoryHandler is CYOA Story http.Handler
-type StoryHandler struct {
+var (
+	defaultTpl *template.Template
+)
+
+func init() {
+	defaultTpl = template.Must(template.New("chapter tpl").Parse(chapterHTML))
+}
+
+// Option is a function
+type Option func(h *Handler)
+
+// WithTemplate sets the provided template
+func WithTemplate(t *template.Template) Option {
+	return func(h *Handler) {
+		h.tpl = t
+	}
+}
+
+// Handler is CYOA Story http.Handler
+type Handler struct {
 	story model.Story
 	tpl   *template.Template
 }
 
 // New creates new handler for provided Story
-func New(story model.Story) *StoryHandler {
-	return &StoryHandler{
+func New(story model.Story, opts ...Option) http.Handler {
+	h := &Handler{
 		story: story,
-		tpl:   template.Must(template.New("chapter tpl").Parse(chapterHTML)),
+		tpl:   defaultTpl,
 	}
+
+	for _, opt := range opts {
+		opt(h)
+	}
+
+	return h
 }
 
-func (h *StoryHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	path := strings.TrimPrefix(strings.TrimSpace(r.URL.Path), "/")
 
 	if path == "" {
