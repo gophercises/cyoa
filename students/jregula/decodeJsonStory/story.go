@@ -2,21 +2,21 @@ package decodeJsonStory
 
 import (
 	"encoding/json"
-    "io"
+	"io"
 	"os"
 )
 
 type Story map[string]Chapter
 
 type Chapter struct {
-	Title string `json:"title"`
-	Story []string `json:"story"`
+	Title   string   `json:"title"`
+	Story   []string `json:"story"`
 	Options []Option `json:"options"`
 }
 
 type Option struct {
 	Text string `json:"text"`
-	Arc string `json:"arc"`
+	Arc  string `json:"arc"`
 }
 
 func JsonStory(r io.Reader) (Story, error) {
@@ -32,7 +32,7 @@ func JsonStory(r io.Reader) (Story, error) {
 func ReadJsonStory(file string) (Story, error) {
 
 	jsonFile, err := os.Open(file)
-	
+
 	if err != nil {
 		return nil, err
 	}

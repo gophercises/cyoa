@@ -1,9 +1,9 @@
 package server
 
 import (
-	"net/http"
-	"html/template"
 	"cyoa/decodeJsonStory"
+	"html/template"
+	"net/http"
 )
 
 type Chapter decodeJsonStory.Chapter
@@ -37,37 +37,37 @@ func (h *Chapter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	t, err := template.New("webpage").Parse(tpl)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
+		return
+	}
 
 	data := Chapter{
-		Title: h.Title, 
-		Story: h.Story,
+		Title:   h.Title,
+		Story:   h.Story,
 		Options: h.Options,
 	}
 
 	err = t.Execute(w, data)
-	if err!= nil {
+	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
+		return
+	}
 
 }
 
 func ServeStory(filePath string) error {
 	story, error := decodeJsonStory.ReadJsonStory(filePath)
 
-	if error!= nil {
-        return error
-    }
+	if error != nil {
+		return error
+	}
 
 	for key, value := range story {
-		http.Handle("/" + key ,&Chapter{
-			Title: value.Title,
-			Story: value.Story,
-            Options: value.Options,
+		http.Handle("/"+key, &Chapter{
+			Title:   value.Title,
+			Story:   value.Story,
+			Options: value.Options,
 		})
 
-    }
-	return nil	
+	}
+	return nil
 }
