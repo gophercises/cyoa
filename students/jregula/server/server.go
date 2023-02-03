@@ -27,7 +27,7 @@ const tpl = `
 		<br/>
 		<ul>
 		{{range .Options}}
-				<li><a href="/{{ .Arc }}">{{ .Text }}</li>
+		<li><a href="/{{ .Arc }}">{{ .Text }}</li>
 		{{end}}
 		<ul/>
 	</body>
